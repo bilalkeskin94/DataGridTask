@@ -71,12 +71,12 @@ function SearchInput({ value, onChange, placeholder }) {
 					background: '#FFFFFF',
 					borderRadius: '29px',
 					minWidth: '49px',
-					height: '42px',
+					height: '49px',
 					marginTop: '5px',
 				}}
 			>
 				<img
-					style={{ position: 'relative', top: '15px', left: '16px' }}
+					style={{ position: 'relative', top: '17px', left: '16px' }}
 					src={Union}
 					alt="union_icon"
 				/>
