@@ -1,70 +1,27 @@
-# Getting Started with Create React App
+# Clone the project and then run this command on project directory
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+npm install
 
-## Available Scripts
+# After installation is done please write this command to start it
 
-In the project directory, you can run:
+npm start
 
-### `npm start`
+# How i proceeded while working on this project and what i understood from it?
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Upon receiving the project brief, my first step was to understand the requirements and goals. The project involved building a user interface with React and Material-UI where users can manage a list of their social media accounts. Key features of the application include the ability to add new entries, edit existing ones, and delete entries.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The application uses a DataGrid component to display the data in a table-like format, and each entry consists of three pieces of information: the social media platform name, a link to the platform, and a description. The project also required the integration of localStorage to persist data between sessions.
 
-### `npm test`
+The Approach:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+My first task was to set up the project structure. I made use of the Material-UI library for UI components and used the DataGrid component for displaying the data. I also set up state management with React's useState hook.
 
-### `npm run build`
+Once the basic structure was in place, I proceeded to develop the feature for adding new entries. I used a modal dialog with form inputs to collect the necessary data from the user. I then validated the input and added the new entry to the data grid.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Next, I worked on the delete feature. I added a delete button to each row in the DataGrid that, when clicked, would remove the corresponding entry.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Lastly, I implemented the data persistence feature using the localStorage API. I created a custom hook to abstract the details of storing and retrieving data from localStorage.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Throughout the development process, I kept my code modular and made use of custom hooks to encapsulate and reuse logic. I also ensured to handle edge cases and potential errors to provide a robust user experience.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Overall, this project was an enriching experience that helped me improve my skills in React, Material-UI, and state management in React. I also learned the importance of planning and structuring my code in a way that enhances its readability and maintainability.
