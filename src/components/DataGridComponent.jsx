@@ -2,62 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
+import { columns, initialRows } from '../constants';
 import useLocalStorage from '../hooks/useLocalStorage';
 import NewAccountModal from './NewAccountModal';
 import NewAccountButton from './NewAccountButton';
+import CustomDataGridComponent from './CustomDataGridComponent';
 import SearchInput from './SearchInput';
-
-const columns = [
-	{
-		field: 'socialMediaLink',
-		headerName: 'Sosyal Medya Linki',
-		flex: 0.3,
-		editable: true,
-	},
-	{
-		field: 'socialMediaName',
-		headerName: 'Sosyal Medya Adı',
-		flex: 0.3,
-		editable: true,
-	},
-	{
-		field: 'description',
-		headerName: 'Açıklama',
-		flex: 0.4,
-		editable: true,
-	},
-];
-
-const initialRows = [
-	{
-		id: 1,
-		socialMediaLink: 'instagram.com/mobilerast/',
-		socialMediaName: 'Instagram',
-		description:
-			"We'll help you to finish your development project successfully.",
-	},
-	{
-		id: 2,
-		socialMediaLink: 'tr.linkedin.com/company/rastmobile',
-		socialMediaName: 'LinkedIn',
-		description:
-			'Hire vetted developers from Rast Mobile to scale up your tech projects.',
-	},
-	{
-		id: 3,
-		socialMediaLink: 'behance.net/rastmobile',
-		socialMediaName: 'Behance',
-		description:
-			'Software Development Agency Rast Mobile Information Technology Ltd.',
-	},
-	{
-		id: 4,
-		socialMediaLink: 'twitter.com/rastmobile',
-		socialMediaName: 'Twitter',
-		description:
-			'Software Development Agency Rast Mobile Information Technology Ltd.',
-	},
-];
 
 export default function DataGridComponent() {
 	const [open, setOpen] = useState(false);
@@ -76,20 +26,14 @@ export default function DataGridComponent() {
 	};
 
 	const getFilteredRows = () => {
-		if (searchValue === '') {
-			return rows;
-		}
-
-		const lowerCaseSearchValue = searchValue.toLowerCase();
-
-		return rows.filter((row) => {
-			const { socialMediaLink, socialMediaName, description } = row;
-			return (
-				socialMediaLink.toLowerCase().includes(lowerCaseSearchValue) ||
-				socialMediaName.toLowerCase().includes(lowerCaseSearchValue) ||
-				description.toLowerCase().includes(lowerCaseSearchValue)
-			);
-		});
+		return rows.filter((row) =>
+			columns.some((column) =>
+				row[column.field]
+					?.toString()
+					.toLowerCase()
+					.includes(searchValue.toLowerCase())
+			)
+		);
 	};
 
 	useEffect(() => {
@@ -211,15 +155,10 @@ export default function DataGridComponent() {
 							<NewAccountButton onClick={handleOpen} />
 						</Box>
 						<Box sx={{ width: '100%', overflowX: 'auto' }}>
-							<DataGrid
-								rows={getFilteredRows()}
+							<CustomDataGridComponent
 								columns={columns}
+								getFilteredRows={getFilteredRows}
 								pageSize={pageSize}
-								initialState={{
-									pagination: { paginationModel: { pageSize: 3 } },
-								}}
-								pageSizeOptions={[3, 6, 9, 12]}
-								disableSelectionOnClick
 							/>
 						</Box>
 						<NewAccountModal

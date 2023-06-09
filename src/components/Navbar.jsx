@@ -23,11 +23,9 @@ function Navbar() {
 						marginLeft: { xl: '104px', lg: '80px', sm: '40px', xs: '0' },
 					}}
 				>
-					<img
-						className="logo"
-						src={Logo}
-						alt="logo"
-					/>
+					<a href="/">
+						<img className="logo" src={Logo} alt="logo" />
+					</a>
 				</Box>
 				<Box
 					sx={{
