@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import { columns, initialRows } from '../constants';
@@ -59,6 +58,37 @@ export default function DataGridComponent() {
 					root: {
 						margin: '0 auto',
 						borderRadius: '8px',
+						'& .MuiDataGrid-iconSeparator': {
+							display: 'none',
+						},
+						'&. .css-zylse7-MuiButtonBase-root-MuiIconButton-root.Mui': {
+							display: 'none',
+						},
+						'& .css-zylse7-MuiButtonBase-root-MuiIconButton-root': {
+							color: '#744bfc',
+						},
+						'& .css-194a1fa-MuiSelect-select-MuiInputBase-input.css-194a1fa-MuiSelect-select-MuiInputBase-input.css-194a1fa-MuiSelect-select-MuiInputBase-input':
+							{
+								border: '1px solid #cfc0ff',
+								borderRadius: '39px',
+							},
+						'& .MuiDataGrid-withBorderColor': {
+							borderColor: '#eaeaea',
+						},
+						'& .MuiDataGrid-columnHeaderTitleContainerContent:first-child, & .MuiDataGrid-cellContent:first-child':
+							{
+								marginLeft: '52px',
+							},
+						'& .MuiDataGrid-cellContent, & .MuiDataGrid-columnHeaderTitleContainerContent':
+							{
+								marginLeft: '27px',
+							},
+						'@media screen and (max-width: 600px)': {
+							'& .MuiDataGrid-columnHeaderTitleContainerContent:first-child, & .MuiDataGrid-cellContent:first-child, & .MuiDataGrid-cellContent, & .MuiDataGrid-columnHeaderTitleContainerContent':
+								{
+									marginLeft: '10px',
+								},
+						},
 					},
 					cell: {
 						textAlign: 'left',
