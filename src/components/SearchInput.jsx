@@ -5,7 +5,12 @@ import Union from '../assets/Union.svg';
 
 function SearchInput({ value, onChange, placeholder }) {
 	return (
-		<>
+		<Box
+			sx={{
+				display: 'flex',
+				gap: '10px',
+			}}
+		>
 			<TextField
 				variant="standard"
 				placeholder={placeholder}
@@ -17,7 +22,13 @@ function SearchInput({ value, onChange, placeholder }) {
 						<InputAdornment position="end">
 							<IconButton
 								sx={{
-									marginRight: '6px',
+									marginRight: {
+										xl: '9px',
+										lg: '9px',
+										md: '9px',
+										sm: '6px',
+										xs: '3px',
+									},
 								}}
 								disableRipple
 							>
@@ -27,9 +38,15 @@ function SearchInput({ value, onChange, placeholder }) {
 					),
 				}}
 				sx={{
-					minWidth: '45px',
+					minWidth: {
+						xl: '350px',
+						lg: '350px',
+						md: '350px',
+						sm: '280px',
+						xs: '280px',
+					},
 					background:
-						'linear-gradient(to right, #FFFFFF 0%, #FFFFFF 90%, #744BFC 90%, #744BFC 100%)',
+						'linear-gradient(to right, #FFFFFF 0%, #FFFFFF 86%, #744BFC 86%, #744BFC 100%)',
 					borderRadius: '39px',
 					'& .MuiOutlinedInput-notchedOutline': {
 						borderTopLeftRadius: '0',
@@ -44,7 +61,6 @@ function SearchInput({ value, onChange, placeholder }) {
 						fontSize: '14px',
 						lineHeight: '17px',
 						color: '#8C8C8C',
-						minWidth: '350px',
 						minHeight: '36px',
 						marginLeft: '29px',
 					},
@@ -54,12 +70,18 @@ function SearchInput({ value, onChange, placeholder }) {
 				sx={{
 					background: '#FFFFFF',
 					borderRadius: '29px',
-					minWidth: '19px',
+					minWidth: '49px',
+					height: '42px',
+					marginTop: '5px',
 				}}
 			>
-				<img src={Union} alt="union_icon" />
+				<img
+					style={{ position: 'relative', top: '15px', left: '16px' }}
+					src={Union}
+					alt="union_icon"
+				/>
 			</Box>
-		</>
+		</Box>
 	);
 }
 

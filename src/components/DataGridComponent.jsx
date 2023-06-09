@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { DataGrid, plPL } from '@mui/x-data-grid';
+import React, { useState, useEffect } from 'react';
+import { DataGrid } from '@mui/x-data-grid';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
+import useLocalStorage from '../hooks/useLocalStorage';
 import NewAccountModal from './NewAccountModal';
 import NewAccountButton from './NewAccountButton';
 import SearchInput from './SearchInput';
@@ -60,23 +61,18 @@ const initialRows = [
 
 export default function DataGridComponent() {
 	const [open, setOpen] = useState(false);
-	const [rows, setRows] = useState(initialRows);
 	const [searchValue, setSearchValue] = useState('');
+	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+	const [pageSize, setPageSize] = useState(4);
+	const [rows, setRows] = useLocalStorage('rowsData', initialRows);
 
-	const handleOpen = () => {
-		setOpen(true);
-	};
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
 
-	const handleClose = () => {
-		setOpen(false);
-	};
-
-	const addNewRow = (link, name, description) => {
-		const newId = Math.max(...rows.map((row) => row.id)) + 1;
-		setRows([
-			...rows,
-			{ id: newId, socialMediaLink: link, socialMediaName: name, description },
-		]);
+	const addNewRow = (socialMediaLink, socialMediaName, description) => {
+		const id = Math.floor(Math.random() * 10000);
+		const newRow = { id, socialMediaLink, socialMediaName, description };
+		setRows((prevRows) => [...prevRows, newRow]);
 	};
 
 	const getFilteredRows = () => {
@@ -88,7 +84,6 @@ export default function DataGridComponent() {
 
 		return rows.filter((row) => {
 			const { socialMediaLink, socialMediaName, description } = row;
-
 			return (
 				socialMediaLink.toLowerCase().includes(lowerCaseSearchValue) ||
 				socialMediaName.toLowerCase().includes(lowerCaseSearchValue) ||
@@ -97,6 +92,22 @@ export default function DataGridComponent() {
 		});
 	};
 
+	useEffect(() => {
+		const handleResize = () => setWindowWidth(window.innerWidth);
+		window.addEventListener('resize', handleResize);
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
+
+	useEffect(() => {
+		if (windowWidth <= 600) {
+			setPageSize(2);
+		} else {
+			setPageSize(4);
+		}
+	}, [windowWidth]);
+
 	const theme = createTheme({
 		components: {
 			MuiDataGrid: {
@@ -104,18 +115,22 @@ export default function DataGridComponent() {
 					root: {
 						margin: '0 auto',
 						borderRadius: '8px',
-						border: '1px solid #EAEAEA',
 					},
 					cell: {
 						textAlign: 'left',
-						border: 'none',
+						borderBottom: '1px solid #C4CEE5',
+						borderRight: '1px solid #C4CEE5',
+						'&:last-child': {
+							borderRight: 'none',
+						},
 					},
 					columnHeader: {
 						backgroundColor: '#FFFFFF',
-					},
-					footer: {
-						border: 'none',
-						borderColor: 'transparent',
+						borderBottom: '1px solid #C4CEE5',
+						borderRight: '1px solid #C4CEE5',
+						'&:last-child': {
+							borderRight: 'none',
+						},
 					},
 					row: {
 						fontFamily: 'Inter',
@@ -128,21 +143,26 @@ export default function DataGridComponent() {
 							backgroundColor: '#FFFFFF',
 						},
 						'&:nth-child(even)': {
-							background:
+							backgroundColor:
 								'linear-gradient(180deg, #EFF2FF -30.56%, rgba(232, 236, 255, 0) 135.85%)',
-						},
-						'& > .MuiDataGrid-cell': {
-							borderRight: '1px solid #C4CEE5',
 						},
 					},
 				},
 			},
-		},
-		palette: {
-			plPL: {
-				MuiDataGrid: {
-					toolbar: {
-						showColumnsTitle: 'Show',
+			MuiCssBaseline: {
+				styleOverrides: {
+					'.MuiDataGrid-footer': {
+						borderTop: 'none !important',
+						borderBottom: 'none !important',
+					},
+
+					'.MuiDataGrid-root .MuiDataGrid-columnHeader:focus, .MuiDataGrid-root .MuiDataGrid-cell:focus':
+						{
+							outline: 'none',
+						},
+					'.MuiDataGrid-root .MuiDataGrid-footerContainer': {
+						borderBottom: 'none !important',
+						borderTop: 'none !important',
 					},
 				},
 			},
@@ -177,8 +197,9 @@ export default function DataGridComponent() {
 						<Box
 							sx={{
 								display: 'flex',
+								alignItems: 'end',
 								justifyContent: 'space-between',
-								alignItems: 'center',
+								flexWrap: 'wrap',
 								marginBottom: '16px',
 							}}
 						>
@@ -193,11 +214,12 @@ export default function DataGridComponent() {
 							<DataGrid
 								rows={getFilteredRows()}
 								columns={columns}
-								pageSize={4}
-								rowsPerPageOptions={[15]}
+								pageSize={pageSize}
+								initialState={{
+									pagination: { paginationModel: { pageSize: 3 } },
+								}}
+								pageSizeOptions={[3, 6, 9, 12]}
 								disableSelectionOnClick
-								localeText={plPL}
-								pageSizeOptions={[5, 10, 25]}
 							/>
 						</Box>
 						<NewAccountModal

@@ -63,8 +63,8 @@ export default function NewAccountModal({ open, handleClose, addNewRow }) {
 					minHeight: '280px',
 
 					'@media (max-width: 600px)': {
-						minWidth: '90vw',
-						minHeight: '80vh',
+						minWidth: '250px',
+						minHeight: '100px',
 					},
 				}}
 			>
